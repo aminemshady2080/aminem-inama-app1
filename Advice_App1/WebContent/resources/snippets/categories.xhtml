@@ -1,0 +1,139 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/resources/templates/main.xhtml">
+
+	<ui:define name="title">#{msg.menu_category}</ui:define>
+
+	<ui:define name="content">
+		<p:tabView dynamic="true" activeIndex="0" value="#{cat.allCategories}"
+			var="c" style="width:90%;margin:0 auto;" orientation="left"
+			rendered="#{appSettings.rwOk}">
+
+			<p:tab title="#{c.titleRw}">
+				<h:outputText value="#{c.descriptionRw}"
+					style="font-weight:bold;font-style:italic;" />
+				<p:tabView value="#{cat.thesubss(c.categoryId)}" var="ss"
+					activeIndex="-1">
+					<p:tab title="#{ss.titleRw}">
+						#{ss.descriptionRw}
+						<br />
+						<hr />
+					</p:tab>
+				</p:tabView>
+				<br />
+				<hr />
+				<p:outputLabel value="#{msg.questDataTableHeader}"
+					style="font-weight:italic;text-decoration: underline;"></p:outputLabel>
+				<br />
+				<p:dataTable value="#{cat.theQuests(c.categoryId)}" var="que"
+					style="border-size:0px;" paginator="true" rows="3"
+					rowsPerPageLabel="more on:">
+					<p:column style="width:20%;">
+						<f:facet name="header">#{msg.askedSince}</f:facet> 
+								#{que.askedTime}
+							</p:column>
+					<p:column>
+						<f:facet name="header">#{msg.quest}</f:facet>
+						<span style="font-weight: bolder; text-decoration: underline;">
+							#{que.title} </span>
+						<br />
+						<br />
+								#{que.description}
+								<p:dataTable
+							value="#{cat.findAnswersForQuestions(que.questionId)}" var="ans">
+							<p:column>
+								<f:facet name="header">#{msg.answerTitle}</f:facet>
+									#{ans.description}
+								</p:column>
+						</p:dataTable>
+
+						<p:accordionPanel activeIndex="-1" style="border:0;">
+							<p:tab title="#{msg.answerThis}">
+								<h:form>
+									<input type="hidden" name="quid" value="#{que.questionId}" />
+									<input type="hidden" name="useid"
+										value="#{cookie['AppUserId'].value}" />
+									<p:inputTextarea cols="20"
+										style="width:100%; height:50px;overflow:scroll;"
+										value="#{answerBean.description}" id="qDesc" required="true"
+										requiredMessage="#{msg.answerRequired}" />
+
+									<h:commandButton action="#{answerBean.saveAnswer()}"
+										value="#{msg.postAnswer}"></h:commandButton>
+								</h:form>
+							</p:tab>
+						</p:accordionPanel>
+					</p:column>
+				</p:dataTable>
+			</p:tab>
+		</p:tabView>
+
+		<p:tabView dynamic="true" activeIndex="0" value="#{cat.allCategories}"
+			var="c" style="width:90%;margin:0 auto;" orientation="left"
+			rendered="#{appSettings.englishOk}">
+			<p:tab title="#{c.titleEng}">
+				<h:outputText value="#{c.descriptionEng}"
+					style="font-weight:bold;font-style:italic; margin:2em;" />
+				<p:tabView value="#{cat.thesubss(c.categoryId)}" var="ss"
+					activeIndex="-1">
+					<p:tab title="#{ss.titleEng}">
+						#{ss.descriptionEng}
+						<br />
+						<hr />
+					</p:tab>
+				</p:tabView>
+				<br />
+				<hr />
+				<p:outputLabel value="#{msg.questDataTableHeader}"
+					style="font-weight:italic;text-decoration: underline;"></p:outputLabel>
+				<br />
+				<p:dataTable value="#{cat.theQuests(c.categoryId)}" var="que"
+					style="border-size:0px;" paginator="true" rows="3"
+					rowsPerPageLabel="more on:" emptyMessage="No Questions Yet">
+					<p:column style="width:20%;">
+						<f:facet name="header">#{msg.askedSince}</f:facet> 
+								#{que.askedTime}
+							</p:column>
+					<p:column>
+						<f:facet name="header">#{msg.quest}</f:facet>
+						<span style="font-weight: bolder; margin-top:1.5em; text-decoration: underline;">
+							#{que.title} </span>
+						<br />
+						<br />
+								#{que.description}
+						<p:dataTable
+							value="#{cat.findAnswersForQuestions(que.questionId)}" var="ans"
+							emptyMessage="No Answers Yet">
+							<p:column>
+								<f:facet name="header">#{msg.answerTitle}</f:facet>
+									#{ans.description}
+									
+							</p:column>
+						</p:dataTable>
+						<p:accordionPanel activeIndex="-1" style="border:0;">
+							<p:tab title="#{msg.answerThis}">
+								<h:form>
+									<input type="hidden" name="quid" value="#{que.questionId}" />
+									<input type="hidden" name="useid"
+										value="#{cookie['AppUserId'].value}" />
+									<p:inputTextarea cols="20"
+										style="width:100%; height:50px;overflow:scroll;"
+										value="#{answerBean.description}" id="qDesc" required="true"
+										requiredMessage="#{msg.answerRequired}" />
+
+									<h:commandButton action="#{answerBean.saveAnswer()}"
+										value="#{msg.postAnswer}"></h:commandButton>
+								</h:form>
+							</p:tab>
+						</p:accordionPanel>
+					</p:column>
+				</p:dataTable>
+			</p:tab>
+
+
+		</p:tabView>
+	</ui:define>
+</ui:composition>

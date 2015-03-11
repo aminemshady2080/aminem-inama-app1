@@ -1,0 +1,56 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<h:form>
+		<h:panelGrid columns="2" border="0" style="width:100%;">
+					#{msg.questCat}	
+			<p:selectOneMenu value="#{questionBean.categoryId}" required="true"
+				style="width:100%;" requiredMessage="#{msg.reqQCateg}" id="qCatIdR"
+				rendered="#{appSettings.rwOk}">
+				<f:selectItem itemLabel="Hitamo Ubwoko bw'Ikibazo" id="itm" />
+				<f:selectItems value="#{cat.allCategories}" var="AskCA"
+					itemValue="#{AskCA.categoryId}" itemLabel="#{AskCA.titleRw}">
+
+				</f:selectItems>
+
+
+			</p:selectOneMenu>
+			<p:selectOneMenu value="#{questionBean.categoryId}" required="true"
+				style="width:100%;" requiredMessage="#{msg.reqQCateg}" id="qCatIdE"
+				rendered="#{appSettings.englishOk}">
+				<f:selectItem itemLabel="Select Category" />
+				<f:selectItems value="#{cat.allCategories}" var="AskCA"
+					itemValue="#{AskCA.categoryId}" itemLabel="#{AskCA.titleEng}" />
+
+			</p:selectOneMenu>
+			
+					
+						#{msg.questTitle}
+						<p:inputText value="#{questionBean.title}" required="true"
+				style="width:100%;" requiredMessage="#{msg.reqQTitle}" id="qTitle" />
+						#{msg.questDesc}
+						<p:inputTextarea cols="20"
+				style="width:100%; height:100px;overflow:scroll;"
+				value="#{questionBean.description}" id="qDesc" required="true"
+				requiredMessage="#{msg.reqQDesc}" />
+				#{msg.email}
+				<p:inputText value="#{questionBean.userEmail}" required="true"
+				style="width:100%;" requiredMessage="#{msg.reqEmail}"></p:inputText>
+				#{msg.password}
+				<p:password value="#{questionBean.userPassword}" required="true"
+				style="width:100%;" requiredMessage="#{msg.reqPass}"
+				validatorMessage="#{msg.reqWeakorLongPass}">
+				<f:validateLength minimum="6" maximum="24">
+				</f:validateLength>
+			</p:password>
+
+		</h:panelGrid>
+		<p:commandButton ajax="false" value="#{msg.postQuest}"
+			action="#{questionBean.saveQuestion()}" />
+
+	</h:form>
+</ui:composition>

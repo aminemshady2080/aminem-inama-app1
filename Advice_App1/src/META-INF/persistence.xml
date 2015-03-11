@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="Advice_App1">
+	<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+		<jta-data-source>jdbc/inama_db1</jta-data-source>
+		<class>aminem.adviceapp.models.Administrator</class>
+		<class>aminem.adviceapp.models.Answer</class>
+		<class>aminem.adviceapp.models.Category</class>
+		<class>aminem.adviceapp.models.Expert</class>
+		<class>aminem.adviceapp.models.Modulator</class>
+		<class>aminem.adviceapp.models.Question</class>
+		<class>aminem.adviceapp.models.Subcategory</class>
+		<class>aminem.adviceapp.models.User</class>
+		<class>aminem.adviceapp.models.Blogpost</class>
+		
+	</persistence-unit>
+</persistence>

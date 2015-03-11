@@ -1,0 +1,218 @@
+@CHARSET "ISO-8859-1";
+*{
+font-size:1em;
+}
+#wrapper {
+	width: 100%;
+	background-color: white;
+	padding: 0;
+	margin: 0 auto;
+}
+
+img {
+	border: 0px;
+}
+
+#top {
+	width: 100%;
+	height: 75px;
+	padding: 0;
+	margin: 0;
+	background-color: silver;
+	border-radius: 5px 5px 0 0;
+	-webkit-border-radius: 5px 5px 0 0;
+	-moz-border-radius: 5px 5px 0 0;
+	-ms-border-radius: 5px 5px 0 0;
+	
+}
+
+#logo-space {
+	float: left;
+	width: 10%;
+	padding: 4px;
+	border-color: gray;
+	border-style: solid;
+	border-width: 1px;
+	background-color: #FFFFFF;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-ms-border-radius: 5px;
+}
+
+#menu-space {
+	float: left;
+	width: 55%;
+}
+
+#menu-space ul {
+	margin-top: 0px;
+	-ms-display: inline;
+}
+
+#menu-space ul li {
+	height: 100%;
+	display: inline-block;
+	-ms-display: inline;
+	border-color: gray;
+	border-style: solid;
+	border-width: 1px;
+	border-bottom: 0px;
+	border-radius: 15px 15px 0 0;
+	-webkit-border-radius: 15px 15px 0 0;
+	-moz-border-radius: 15px 15px 0 0;
+	-ms-border-radius: 15px 15px 0 0;
+	padding: 0 25px 0 25px;
+	margin: 7px 0 0 0;
+	background-color: white;
+	list-style: none;
+}
+
+#menu-space ul li  a {
+	text-decoration: none;
+	list-style: none;
+}
+
+#menu-space ul li a:ACTIVE {
+	border-bottom-color: aqua;
+	border-bottom-style: solid;
+	border-bottom-width: 3px;
+}
+
+#menu-space ul li:HOVER {
+	background-color: olive;
+}
+
+.menu-items {
+	width: 100%;
+	height: 100%;
+	text-decoration: none;
+}
+
+#search-space {
+	float: left;
+	width: 30%;
+}
+
+#search {
+	width: 100%;
+}
+
+#search-form {
+	width: 100%;
+}
+
+#search_grid {
+	width: 100%;
+}
+
+#search_field {
+	width: 80%;
+}
+
+#search_button {
+	width: 20%;
+}
+
+#center {
+	width: 100%;
+	padding: 0;
+	margin:0 auto;
+	float: left;
+}
+
+#bigcontent {
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+
+#centralcontent {
+	width: 41%;
+	padding: 0;
+	margin: 0;
+	float: left;
+	height: 500px;
+}
+
+#leftcontent {
+	width: 27%;
+	padding: 0;
+	margin: 0;
+	float: left;
+	height: 500PX;
+	overflow: scroll;
+}
+
+#rightcontent {
+	width: 30%;
+	height: 500PX;
+	padding-bottom: 15px;
+	margin: 0;
+	float: right;
+}
+
+.grid {
+	border-style: none;
+}
+
+#user-centralcontent {
+	width: 97%;
+	height: auto;
+	border: 1px solid grey;
+	margin-bottom: 5px;
+}
+
+#user_ask {
+	width: 55%;
+	float: left;
+}
+
+#user_profile {
+	width: 40%;
+	float: left;
+}
+
+#user_QA {
+	width: 100%;
+	float: left;
+}
+
+#user-questions {
+	float: left;
+	width: 48%;
+	margin-right: 1em;
+}
+
+#user-answers {
+	float: left;
+	width: 48%;
+}
+
+#logout_space {
+	float: left;
+}
+
+table {
+	padding: 0;
+	margin: 0;
+	text-align: left;
+}
+
+#footer {
+	width: 100%;
+	padding: 10px;
+	margin: 0;
+	clear: both;
+	text-align: center;
+}
+
+.small_content {
+	font-family: arial;
+	font-size: .8em;
+}
+.ui-growl{
+	top: 150px !important;
+	right: 250px !important;
+	left: 250px !important;
+}

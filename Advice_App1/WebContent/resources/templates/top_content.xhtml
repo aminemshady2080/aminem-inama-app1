@@ -1,0 +1,80 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<div id="logo-space">
+		<p:graphicImage name="icon.png" library="images" width="60"
+			height="60" />
+		<p:graphicImage name="inama.png" library="images" width="70"
+			height="60" />
+
+	</div>
+	<div id="menu-space">
+		<ul>
+			<li><a href="#{request.contextPath}/index.jsf"> <p:graphicImage
+						name="home.jpg" library="images" width="60" height="60"
+						title="#{msg.home}" />
+			</a></li>
+			<li><a
+				href="#{request.contextPath}/resources/snippets/categories.jsf">
+					<p:graphicImage name="menu.jpg" library="images" width="60"
+						height="60" title="#{msg.menu_category}" />
+			</a></li>
+			<li><a
+				href="#{request.contextPath}/resources/snippets/questions.jsf">
+					<p:graphicImage name="help2.jpg" library="images" width="60"
+						height="60" title="#{msg.quest}" />
+			</a></li>
+			<li><p:graphicImage name="experts.jpg" library="images" width="60"
+					height="60" /></li>
+			<li><a href="#{request.contextPath}/resources/snippets/user.jsf">
+					<p:graphicImage style="text-align:center;" name="user.jpg"
+						library="images" width="60" height="60"
+						title="#{msg.user} #{cookie['username'].value }" />
+			</a></li>
+
+		</ul>
+	</div>
+	<div id="search-space">
+
+		<table>
+			<tr>
+				<td><p:outputLabel value="#{cookie['AppUsername'].value }"
+						rendered="#{!userBean.loggedIn}" style="color:navy;"></p:outputLabel></td>
+
+				<td><h:form>
+						<h:commandButton value="#{msg.logout}"
+							rendered="#{!userBean.loggedIn}"
+							actionListener="#{userBean.signOut}" immediate="true">
+						</h:commandButton>
+					</h:form></td>
+				<td><h:form style="float:left;">
+
+						<h:commandButton value="#{msg.change}"
+							actionListener="#{appSettings.changeLang}" immediate="true">
+						</h:commandButton>
+
+					</h:form></td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<div id="search">
+
+						<h:form title="#{msg.search_here}" id="search-form">
+							<h:panelGrid columns="2" border="0" style="width:100%;"
+								id="search_grid">
+
+								<p:inputText size="35" placeholder="#{msg.search_here}"
+									id="search-field"></p:inputText>
+								<h:commandButton value="Go" id="search-button" />
+							</h:panelGrid>
+						</h:form>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+</ui:composition>

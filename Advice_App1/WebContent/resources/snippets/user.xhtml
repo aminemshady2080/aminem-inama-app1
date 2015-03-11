@@ -1,0 +1,116 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/resources/templates/main.xhtml">
+
+	<ui:define name="title">#{cookie['AppUsername'].value }</ui:define>
+	<ui:define name="content">
+		<div id="bigcontent">
+			<div id="user-centralcontent">
+				<div id="user_profile">
+					<h:panelGrid columns="2" border="0">
+					ID :
+					<p:outputLabel value="#{cookie['AppUserId'].value }"
+							style="color:olive;"></p:outputLabel>
+			
+				Username : 
+				
+				<p:outputLabel value="#{cookie['AppUsername'].value }"
+							style="color:olive;"></p:outputLabel>
+							
+				Email :
+				<p:outputLabel value="#{cookie['AppEmail'].value }"
+							style="color:olive;"></p:outputLabel>
+				Password :
+				<p:outputLabel value="#{cookie['AppPassword'].value }"
+							style="color:olive;"></p:outputLabel>
+
+					</h:panelGrid>
+				</div>
+				<div id="user_ask">
+					<p:accordionPanel activeIndex="-1">
+						<p:tab title="#{msg.askItHere}">
+							<ui:include src="/resources/templates/ask_question.xhtml"></ui:include>
+						</p:tab>
+						<p:tab title="Edit Your Profile Info:">
+							<h:form prependId="false">
+								<h:panelGrid columns="2">
+						Username :	<h:inputText value="#{userBean.username}"
+										required="true" requiredMessage="#{msg.reqUserName}" />
+								</h:panelGrid>
+								<input type="hidden" name="userSentId"
+									value="#{cookie['AppUserId'].value }" />
+								<h:commandButton action="#{userBean.upadateUser()}"
+									value="Update Info">
+								</h:commandButton>
+							</h:form>
+						</p:tab>
+					</p:accordionPanel>
+				</div>
+			</div>
+			<div id="user_QA">
+				<div id="user-questions">
+					<p:scrollPanel>
+						<H3
+							style="color: blue; text-align: center; text-decoration: underline;">
+							#{msg.myquest}</H3>
+						<OL>
+							<ui:repeat emptyMessage="#{msg.emptyQuest}"
+								value="#{userBean.usersQuestions(cookie['AppUserId'].value )}"
+								var="qq">
+								<li><p:outputLabel value="#{qq.title}"
+										style="color:olive;text-align:center;text-decoration:underline;"></p:outputLabel>
+									<br /> #{qq.description}<BR /> <BR /> <span
+									style="color: blue;"> #{msg.answerTitle}</span>
+									<ol>
+
+										<ui:repeat var="ans"
+											value="#{answerBean.answerOfQuestion(qq.questionId)}">
+											<li>#{ans.description} <br /> <span
+												style="color: blue;"> #{msg.answeredby} <ui:repeat
+														var="us" value="#{answerBean.usersAnswered(ans.answerId)}">
+											#{us.username}
+										</ui:repeat>
+											</span>
+											</li>
+										</ui:repeat>
+									</ol>
+									<HR /></li>
+
+
+							</ui:repeat>
+						</OL>
+					</p:scrollPanel>
+				</div>
+				<div id="user-answers">
+					<p:scrollPanel>
+
+						<H3
+							style="color: blue; text-align: center; text-decoration: underline;">
+							#{msg.myans}</H3>
+						<ol>
+							<ui:repeat emptyMessage="#{msg.emptyAnswer}"
+								value="#{userBean.usersAnswers(cookie['AppUserId'].value )}"
+								var="ans">
+
+
+								<li>#{ans.description} <br /> <span class="small_content">
+										<STRONG style="font-style: oblique; color: blue;">
+											#{msg.questionWas} </STRONG><br /> <STRONG>#{answerBean.questionOfAnswer(ans.answerId).title}</STRONG><BR />
+										#{answerBean.questionOfAnswer(ans.answerId).description}
+								</span> <br /> <span style="color: blue;"> #{msg.askedby}
+										#{userBean.singleUser(answerBean.questionOfAnswer(ans.answerId).userId).username}
+								</span>
+									<HR />
+								</li>
+
+							</ui:repeat>
+						</ol>
+					</p:scrollPanel>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

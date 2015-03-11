@@ -1,0 +1,122 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/resources/templates/main.xhtml">
+
+	<ui:define name="title">#{msg.home}</ui:define>
+	<ui:define name="content">
+		<div id="bigcontent">
+			<p:scrollPanel id="leftcontent">
+				<p:dataTable var="blog" value="#{blogpostBean.allPosts}">
+					<p:column>
+						<f:facet name="header">#{msg.blog_title}</f:facet>
+
+						<span style="color: black; font-weight: bolder;">
+							#{blog.title}</span>
+						<br />
+						<br />
+							#{blog.description}
+							<br />
+						<span style="color: blue;"> #{msg.postedby}
+							#{blogpostBean.expertOfBlog(blog.postId).username} </span>
+					</p:column>
+
+				</p:dataTable>
+			</p:scrollPanel>
+			<p:scrollPanel id="centralcontent">
+
+				<p:accordionPanel activeIndex="1">
+					<p:tab title="Login / Signup">
+						<h:form>
+
+							<h:panelGrid columns="2">
+							
+							Email:	<p:inputText value="#{userBean.email}"
+									placeholder="#{cookie['AppEmail'].value}" required="true"
+									requiredMessage="#{msg.reqEmail}" type="email" id="uEmail">
+
+								</p:inputText>
+									
+							Password:	<p:password value="#{userBean.password}"
+									required="true" requiredMessage="#{msg.reqPass}"
+									id="uPass"
+									validatorMessage="#{msg.reqWeakorLongPass}">
+									<f:validateLength minimum="6" maximum="24" for="uPass">
+									</f:validateLength>
+								</p:password>
+
+							</h:panelGrid>
+							<p:commandButton ajax="false" value="Signup"
+								action="#{userBean.signinUser()}" />
+						</h:form>
+					</p:tab>
+					<p:tab title="#{msg.askItHere}">
+						<ui:include src="/resources/templates/ask_question.xhtml"></ui:include>
+					</p:tab>
+				</p:accordionPanel>
+
+			</p:scrollPanel>
+			<p:scrollPanel id="rightcontent">
+				<p:dataTable var="quest" value="#{questionBean.allQuestions}"
+					rows="10">
+
+					<p:column>
+						<f:facet name="header">#{msg.recentquestion}</f:facet>
+
+						<span
+							style="text-decoration: underline; font-weight: bold; color: olive;">
+							#{quest.title} </span>
+						<br />
+
+						<span style="color: blue;"> #{msg.askedby} <ui:repeat
+								var="us" value="#{questionBean.usersAsked(quest.questionId)}">
+											#{us.username} <br />
+											#{msg.askedSince} :
+											#{quest.askedTime}
+								</ui:repeat>
+						</span>
+
+						<br />
+							
+							#{quest.description}
+							
+							<br />
+						<span style="text-decoration: underline; color: black;">#{msg.answerTitle}
+						</span>
+						<ol>
+							<ui:repeat var="ans"
+								value="#{answerBean.answerOfQuestion(quest.questionId)}">
+								<li>#{ans.description} <br /> <span style="color: blue;">
+										#{msg.answeredby} <ui:repeat var="us"
+											value="#{answerBean.usersAnswered(ans.answerId)}">
+											#{us.username}
+										</ui:repeat>
+								</span>
+								</li>
+							</ui:repeat>
+						</ol>
+						<p:accordionPanel activeIndex="-1" style="border:0;">
+							<p:tab title="#{msg.answerThis}">
+								<h:form>
+									<input type="hidden" name="quid" value="#{quest.questionId}" />
+									<input type="hidden" name="useid"
+										value="#{cookie['AppUserId'].value}" />
+									<p:inputTextarea cols="20"
+										style="width:100%; height:50px;overflow:scroll;"
+										value="#{answerBean.description}" id="qDesc" required="true"
+										requiredMessage="#{msg.reqAnswer}" />
+
+									<h:commandButton action="#{answerBean.saveAnswer()}"
+										value="#{msg.postAnswer}"></h:commandButton>
+								</h:form>
+							</p:tab>
+						</p:accordionPanel>
+					</p:column>
+
+				</p:dataTable>
+			</p:scrollPanel>
+		</div>
+	</ui:define>
+</ui:composition>
